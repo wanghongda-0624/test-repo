@@ -1,4 +1,4 @@
-FROM acrarchi41.azurecr.cn/archi41-ready/nginx:1.19
+FROM swr.cn-east-3.myhuaweicloud.com/cdo-org/nginx:latest
 
 #copy your web site files to nginx root directory
 RUN chmod -R 775 /var
