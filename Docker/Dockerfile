@@ -1,4 +1,4 @@
-FROM swr.cn-east-3.myhuaweicloud.com/cdo-org/nginx:latest
+FROM nginx:latest
 
 #copy your web site files to nginx root directory
 RUN chmod -R 775 /var
