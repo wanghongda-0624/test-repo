@@ -30,6 +30,9 @@ steps:
     Contents: 'dist/**' # Pull the build directory (React)
     TargetFolder: '$(Build.ArtifactStagingDirectory)'
 
+- script: |
+    systemctl start docker
+    
 
 - task: Docker@2
   displayName: Build an image
