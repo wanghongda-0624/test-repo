@@ -32,6 +32,11 @@ steps:
 
 - script: |
     systemctl start docker
+
+- task: PublishBuildArtifacts@1
+  inputs: 
+    PathtoPublish: $(Build.ArtifactStagingDirectory) # dist or build files
+    ArtifactName: 'www' # output artifact named www
     
 
 - task: Docker@2
