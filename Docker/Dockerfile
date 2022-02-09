@@ -4,6 +4,7 @@ FROM nginx:latest
 RUN chmod -R 775 /var
 RUN chmod -R 775 /etc
 
-COPY $(Build.ArtifactStagingDirectory)/www/dist/ /usr/share/nginx/html/
-#COPY docker/nginx.conf /etc/nginx/nginx.conf
+#COPY $(Build.ArtifactStagingDirectory)/www/dist/ /usr/share/nginx/html/
+COPY dist/ /usr/share/nginx/html/
+COPY docker/nginx.conf /etc/nginx/nginx.conf
 EXPOSE 80
