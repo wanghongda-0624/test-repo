@@ -32,7 +32,6 @@ steps:
 
 - script: |
     systemctl start docker
-    echo $dist
 - task: PublishBuildArtifacts@1
   inputs: 
     PathtoPublish: $(Build.ArtifactStagingDirectory) # dist or build files
