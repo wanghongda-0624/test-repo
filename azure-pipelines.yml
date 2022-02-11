@@ -35,4 +35,4 @@ steps:
   inputs:
     repository: $(imageName)
     command: build
-    Dockerfile: Docker/Dockerfile
+    Dockerfile: Docker/Dockerfile2
