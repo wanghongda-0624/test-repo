@@ -27,6 +27,7 @@ steps:
 - script: |
     systemctl start docker
     pwd
+    echo $(Build.ArtifactStagingDirectory)
 - task: CopyFiles@2
   inputs:
     contents: 'dist/**'
@@ -35,18 +36,7 @@ steps:
   inputs:
     pathToPublish: $(Build.ArtifactStagingDirectory)
     artifactName: MyBuildOutputs
-- task: replacetokens@5
-  inputs:
-    targetFiles: '**/*.Dockerfile'
-    encoding: 'auto'
-    tokenPattern: 'default'
-    writeBOM: true
-    actionOnMissing: 'warn'
-    keepToken: false
-    actionOnNoFiles: 'continue'
-    enableTransforms: false
-    useLegacyPattern: false
-    enableTelemetry: true
+
 - task: Docker@2
   displayName: Build an image
   inputs:
