@@ -28,6 +28,7 @@ steps:
     systemctl start docker
     pwd
     echo $(Build.ArtifactStagingDirectory)
+    echo $(sss)
 - task: CopyFiles@2
   inputs:
     contents: 'dist/**'
