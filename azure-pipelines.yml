@@ -57,3 +57,12 @@ steps:
     repository: $(imageName)
     command: build
     Dockerfile: Docker/Dockerfile
+- task: ArtifactoryDocker@1
+  inputs:
+    command: 'push'
+    artifactoryService: 'jrog-connection-cdo'
+    targetRepo: 'cdocloud-docker'
+    imageName: 'gtsartifact.jfrog.io/cdocloud-docker/$(Build.Repository.Name):$(Build.BuildId)'
+    collectBuildInfo: true
+    buildName: '$(Build.DefinitionName)'
+    buildNumber: '$(Build.BuildNumber)'
