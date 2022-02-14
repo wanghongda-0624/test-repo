@@ -2,7 +2,7 @@
 * 头部菜单
 */ 
 <template>
-  <el-menu class="el-menu-demo" mode="horizontal" background-color="#334157" text-color="#fff" active-text-color="#fff">
+  <el-menu class="el-menu-demo" mode="horizontal" background-color="#fff" text-color="#000" active-text-color="#000">
     <el-button class="buttonimg">
       <img class="showimg" :src="collapsed?imgsq:imgshow" @click="toggle(collapsed)">
     </el-button>
@@ -11,10 +11,13 @@
     
     <el-submenu index="2" class="submenu">
       <!-- <template slot="title">{{user.userRealName}}</template> -->
-      <template slot="title">超级管理员</template>
-      <el-menu-item index="2-1">设置</el-menu-item>
-      <el-menu-item @click="content()" index="2-2">个人中心</el-menu-item>
-      <el-menu-item @click="exit()" index="2-3">退出</el-menu-item>
+      <template slot="title">
+        <i class="el-icon-s-custom"></i>
+          <span>Hongda Wang</span>
+      </template>
+      <el-menu-item index="2-1">Settings</el-menu-item>
+      <el-menu-item @click="content()" index="2-2">My Account</el-menu-item>
+      <el-menu-item @click="exit()" index="2-3">Sign out</el-menu-item>
     </el-submenu>
   </el-menu>
 </template>
@@ -25,8 +28,8 @@ export default {
   data() {
     return {
       collapsed: true,
-      imgshow: require('../assets/img/show.png'),
-      imgsq: require('../assets/img/sq.png'),
+      imgshow: require('../assets/img/折叠2.svg'),
+      imgsq: require('../assets/img/collapse.svg'),
       user: {}
     }
   },
@@ -97,6 +100,7 @@ export default {
 }
 .submenu {
   float: right;
+  border-bottom-color: #fff;
 }
 .buttonimg {
   height: 60px;
@@ -112,5 +116,8 @@ export default {
 }
 .showimg:active {
   border: none;
+}
+.el-submenu__title{
+  border-bottom-color: #fff;
 }
 </style>

@@ -562,4 +562,6 @@ export default {
   margin-top: 20px;
   height: 32vh;
 }
+
+
 </style>

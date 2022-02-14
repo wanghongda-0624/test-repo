@@ -1,11 +1,13 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import { showright } from '../utils/util';
 
 Vue.use(Vuex);
 // 登录验证
 export default new Vuex.Store({
     state: {
-        user: false
+        user: false,
+        showright: true
     },
     mutations: {
         // 登录

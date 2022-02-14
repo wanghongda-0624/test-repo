@@ -5,43 +5,46 @@
   <div>
     <!-- 面包屑导航 -->
     <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-      <el-breadcrumb-item>商品管理</el-breadcrumb-item>
+      <el-breadcrumb-item :to="{ path: '/' }">Home</el-breadcrumb-item>
+      <el-breadcrumb-item>My Resource</el-breadcrumb-item>
     </el-breadcrumb>
     <!-- 搜索筛选 -->
     <el-form :inline="true" :model="formInline" class="user-search">
-      <el-form-item label="搜索：">
-        <el-input size="small" v-model="formInline.deptName" placeholder="输入部门名称"></el-input>
+      <el-form-item label="Search：">
+        <el-input size="small" v-model="formInline.deptName" placeholder="Resource Type"></el-input>
       </el-form-item>
-      <el-form-item label="">
+      <!-- <el-form-item label="">
         <el-input size="small" v-model="formInline.deptNo" placeholder="输入部门代码"></el-input>
-      </el-form-item>
+      </el-form-item> -->
       <el-form-item>
-        <el-button size="small" type="primary" icon="el-icon-search" @click="search">搜索</el-button>
-        <el-button size="small" type="primary" icon="el-icon-plus" @click="handleEdit()">添加</el-button>
+        <el-button size="small" type="primary" icon="el-icon-search" @click="search">Search</el-button>
+        <!-- <el-button size="small" type="primary" icon="el-icon-plus" @click="handleEdit()">添加</el-button> -->
       </el-form-item>
     </el-form>
     <!--列表-->
     <el-table size="small" :data="listData" highlight-current-row v-loading="loading" border element-loading-text="拼命加载中" style="width: 100%;">
       <el-table-column align="center" type="selection" width="60">
       </el-table-column>
-      <el-table-column sortable prop="deptName" label="部门名称" width="300">
+      <el-table-column sortable prop="deptName" label="Provider" width="300">
       </el-table-column>
-      <el-table-column sortable prop="deptNo" label="部门代码" width="300">
+      <el-table-column sortable prop="deptNo" label="Resource Type" width="300">
       </el-table-column>
-      <el-table-column sortable prop="editTime" label="修改时间" width="300">
+      </el-table-column>
+      <el-table-column sortable prop="deptNo" label="Resource Name" width="300">
+      </el-table-column>
+      <el-table-column sortable prop="editTime" label="Create Time" width="300">
         <template slot-scope="scope">
           <div>{{scope.row.editTime|timestampToTime}}</div>
         </template>
       </el-table-column>
-      <el-table-column sortable prop="editUser" label="修改人" width="300">
+      <el-table-column sortable prop="editUser" label="Create Person" width="300">
       </el-table-column>
-      <el-table-column align="center" label="操作" min-width="300">
+      <!-- <el-table-column align="center" label="操作" min-width="300">
         <template slot-scope="scope">
           <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
           <el-button size="mini" type="danger" @click="deleteUser(scope.$index, scope.row)">删除</el-button>
         </template>
-      </el-table-column>
+      </el-table-column> -->
     </el-table>
     <!-- 分页组件 -->
     <Pagination v-bind:child-msg="pageparm" @callFather="callFather"></Pagination>
@@ -139,52 +142,52 @@ export default {
         data: [
           {
             addUser: null,
-            editUser: null,
+            editUser: 'hwang425',
             addTime: 1521062371000,
             editTime: 1526700200000,
             deptId: 2,
-            deptName: 'XX分公司',
-            deptNo: '1',
+            deptName: '华为cloud',
+            deptNo: 'CCE',
             parentId: 1
           },
           {
             addUser: null,
-            editUser: null,
+            editUser: 'hwang425',
             addTime: 1521063247000,
             editTime: 1526652291000,
             deptId: 3,
-            deptName: '上海测试',
-            deptNo: '02',
+            deptName: '华为cloud',
+            deptNo: 'RDS',
             parentId: 1
           },
           {
             addUser: null,
-            editUser: null,
+            editUser: 'hwang425',
             addTime: 1526349555000,
             editTime: 1526349565000,
             deptId: 12,
-            deptName: '1',
-            deptNo: '11',
+            deptName: '阿里cloud',
+            deptNo: 'ECS',
             parentId: 1
           },
           {
             addUser: null,
-            editUser: null,
+            editUser: 'hwang425',
             addTime: 1526373178000,
             editTime: 1526373178000,
             deptId: 13,
-            deptName: '5',
-            deptNo: '5',
+            deptName: '阿里cloud',
+            deptNo: 'VPC',
             parentId: 1
           },
           {
             addUser: null,
-            editUser: null,
+            editUser: 'hwang425',
             addTime: 1526453107000,
             editTime: 1526453107000,
             deptId: 17,
-            deptName: 'v',
-            deptNo: 'v',
+            deptName: '腾讯cloud',
+            deptNo: 'Database',
             parentId: 1
           }
         ]
@@ -319,13 +322,15 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 .user-search {
   margin-top: 20px;
 }
 .userRole {
   width: 100%;
 }
+.el-table .cell{
+  color:#515151 !important;}
 </style>
 
  

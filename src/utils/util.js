@@ -39,6 +39,9 @@ const getStore = name => {
     return window.localStorage.getItem(name);
 }
 
+// rightnav全局变量
+let showright = true;
+
 /**
  * 删除localStorage
  */
@@ -86,5 +89,6 @@ export {
     removeStore,
     setCookie,
     getCookie,
-    delCookie
+    delCookie,
+    showright
 }

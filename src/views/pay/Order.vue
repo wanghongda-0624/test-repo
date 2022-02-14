@@ -5,65 +5,68 @@
   <div>
     <!-- 面包屑导航 -->
     <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-      <el-breadcrumb-item>交易订单</el-breadcrumb-item>
+      <el-breadcrumb-item :to="{ path: '/' }">Home</el-breadcrumb-item>
+      <el-breadcrumb-item>Bill Management</el-breadcrumb-item>
     </el-breadcrumb>
     <!-- 搜索筛选 -->
     <el-form :inline="true" :model="formInline" class="user-search">
-      <el-form-item label="搜索：">
-        <el-input size="small" v-model="formInline.machineNo" placeholder="输入终端编号"></el-input>
+      <el-form-item label="Search：">
+        <el-input size="small" v-model="formInline.machineNo" placeholder="Application Name"></el-input>
       </el-form-item>
-      <el-form-item>
+      <!-- <el-form-item>
         <el-input size="small" v-model="formInline.orderNo" placeholder="输入订单号"></el-input>
-      </el-form-item>
-      <el-form-item>
+      </el-form-item> -->
+      <!-- <el-form-item>
         <el-input size="small" v-model="formInline.transId" placeholder="输入交易单号"></el-input>
-      </el-form-item>
+      </el-form-item> -->
       <el-form-item>
-        <el-select size="small" v-model="formInline.payType" placeholder="请选择">
+        <el-select size="small" v-model="formInline.payType" placeholder="Cloud Provider">
           <el-option v-for="type in payType" :label="type.key" :value="type.value" :key="type.value"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item>
-        <el-select size="small" v-model="formInline.orderStatus" placeholder="请选择">
+        <el-select size="small" v-model="formInline.orderStatus" placeholder="Resource Type">
           <el-option v-for="type in payway" :label="type.key" :value="type.value" :key="type.value"></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item>
-        <el-button size="small" type="primary" icon="el-icon-search" @click="search">搜索</el-button>
+      <el-form-item style="margin-left: 15%">
+        <el-button size="small" type="primary" icon="el-icon-search" @click="search">Search</el-button>
       </el-form-item>
     </el-form>
     <!--列表-->
     <el-table size="small" :data="listData" highlight-current-row v-loading="loading" border element-loading-text="拼命加载中" style="width: 100%;">
       <el-table-column align="center" type="index" width="60">
       </el-table-column>
-      <el-table-column sortable prop="machineNo" label="终端编号" width="120" show-overflow-tooltip>
+      <el-table-column sortable prop="machineNo" label="Provider" width="110" show-overflow-tooltip>
       </el-table-column>
-      <el-table-column sortable prop="orderNo" label="订单号" width="120" show-overflow-tooltip>
       </el-table-column>
-      <el-table-column sortable prop="transId" label="交易单号" width="120" show-overflow-tooltip>
+      <el-table-column sortable prop="appname" label="Application" width="120" show-overflow-tooltip>
       </el-table-column>
-      <el-table-column sortable prop="payType" label="支付方式" width="140" show-overflow-tooltip>
+      <el-table-column sortable prop="orderNo" label="Resource Type" width="140" show-overflow-tooltip>
       </el-table-column>
-      <el-table-column sortable prop="transType" label="交易类型" width="120" show-overflow-tooltip>
+      <el-table-column sortable prop="transId" label="Resource Name" width="140" show-overflow-tooltip>
       </el-table-column>
-      <el-table-column sortable prop="goodsPrice" label="商品价格" width="120" show-overflow-tooltip>
+      <el-table-column sortable prop="payType" label="Charge Mode" width="140" show-overflow-tooltip>
       </el-table-column>
-      <el-table-column sortable prop="payAmount" label="支付金额" width="180" show-overflow-tooltip>
+      <el-table-column sortable prop="transType" label="Bill Type" width="120" show-overflow-tooltip>
       </el-table-column>
-      <el-table-column sortable prop="goodsName" label="商品名称" width="140" show-overflow-tooltip>
+      <el-table-column sortable prop="goodsPrice" label="Official Price" width="120" show-overflow-tooltip>
       </el-table-column>
-      <el-table-column sortable prop="orderStatus" label="订单状态" width="120" show-overflow-tooltip>
+      <el-table-column sortable prop="payAmount" label="Paid Price" width="180" show-overflow-tooltip>
       </el-table-column>
-      <el-table-column sortable prop="addTime" label="创建时间" width="180" show-overflow-tooltip>
+      <el-table-column sortable prop="goodsName" label="Resource Status" width="140" show-overflow-tooltip>
+      </el-table-column>
+      <el-table-column sortable prop="orderStatus" label="Create Person" width="140" show-overflow-tooltip>
+      </el-table-column>
+      <el-table-column sortable prop="addTime" label="Create Time" width="180" show-overflow-tooltip>
         <template slot-scope="scope">
           <div>{{scope.row.addTime|timestampToTime}}</div>
         </template>
       </el-table-column>
-      <el-table-column align="center" label="操作" min-width="150">
+      <el-table-column align="center" label="Action" min-width="150">
         <template slot-scope="scope">
-          <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">预览</el-button>
-          <el-button size="mini" type="danger" @click="deleteUser(scope.$index, scope.row)">退款</el-button>
+          <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">Preview</el-button>
+          <!-- <el-button size="mini" type="danger" @click="deleteUser(scope.$index, scope.row)">退款</el-button> -->
         </template>
       </el-table-column>
     </el-table>
@@ -150,18 +153,18 @@ export default {
       editFormVisible: false, //控制编辑页面显示与隐藏
       title: '预览',
       payType: [
-        { key: '请选择', value: 0 },
-        { key: '现金', value: 1 },
-        { key: '支付宝', value: 2 },
-        { key: '微信', value: 3 },
-        { key: 'POS通', value: 4 },
-        { key: '闪付', value: 5 },
-        { key: 'POS通C扫B', value: 6 },
-        { key: '银联二维码', value: 8 },
-        { key: '会员余额支付', value: 9 }
+        { key: 'Cloud Provider', value: 0 },
+        { key: '华为云', value: 1 },
+        { key: '阿里云', value: 2 },
+        { key: '腾讯云', value: 3 },
+        { key: '微软云', value: 4 },
+        // { key: '闪付', value: 5 },
+        // { key: 'POS通C扫B', value: 6 },
+        // { key: '银联二维码', value: 8 },
+        // { key: '会员余额支付', value: 9 }
       ],
       payway: [
-        { key: '请选择', value: 0 },
+        { key: 'Resource Type', value: 0 },
         { key: '初始化', value: 1 },
         { key: '已支付', value: 2 },
         { key: '出货成功', value: 3 },
@@ -255,11 +258,12 @@ export default {
             payType: 6,
             subPayType: 'WXPay',
             transType: '退款',
-            machineNo: '111111',
+            appname:'wellness',
+            machineNo: '华为cloud',
             goodsNo: '123456',
             goodsPrice: 0.01,
             payAmount: -0.01,
-            goodsName: '可乐',
+            goodsName: '正常',
             aisleNo: null,
             orderStatus: 14,
             openId: null,
@@ -280,11 +284,12 @@ export default {
             payType: 6,
             subPayType: 'WXPay',
             transType: '退款',
-            machineNo: 'J1AX904002',
+            appname:'wellness',
+            machineNo: '华为cloud',
             goodsNo: '123456',
             goodsPrice: 0.01,
             payAmount: -0.01,
-            goodsName: '可乐',
+            goodsName: '正常',
             aisleNo: null,
             orderStatus: 14,
             openId: null,
@@ -305,11 +310,12 @@ export default {
             payType: 6,
             subPayType: 'WXPay',
             transType: '消费',
-            machineNo: 'J1AX904002',
+            appname:'wellness',
+            machineNo: '华为cloud',
             goodsNo: '123456',
             goodsPrice: 0.01,
             payAmount: 0.01,
-            goodsName: '可乐',
+            goodsName: '正常',
             aisleNo: null,
             orderStatus: 7,
             openId: null,
@@ -330,11 +336,12 @@ export default {
             payType: 0,
             subPayType: '0',
             transType: '消费',
-            machineNo: '111111111111111',
+            appname:'wellness',
+            machineNo: '阿里cloud',
             goodsNo: '123456',
             goodsPrice: 0.01,
             payAmount: 0.01,
-            goodsName: '可乐',
+            goodsName: '正常',
             aisleNo: null,
             orderStatus: 7,
             openId: null,
@@ -355,11 +362,12 @@ export default {
             payType: 0,
             subPayType: '0',
             transType: '消费',
-            machineNo: '93000791',
+            appname:'wellness',
+            machineNo: '阿里cloud',
             goodsNo: '123456',
             goodsPrice: 0.01,
             payAmount: 0.01,
-            goodsName: '可乐',
+            goodsName: '正常',
             aisleNo: null,
             orderStatus: 1,
             openId: null,
@@ -380,11 +388,12 @@ export default {
             payType: 6,
             subPayType: 'WXPay',
             transType: '退款',
-            machineNo: '222222222222222222',
+            appname:'CDO',
+            machineNo: '腾讯cloud',
             goodsNo: '123456',
             goodsPrice: 0.01,
             payAmount: 0.01,
-            goodsName: '可乐',
+            goodsName: '正常',
             aisleNo: null,
             orderStatus: 8,
             openId: null,
@@ -405,11 +414,12 @@ export default {
             payType: 6,
             subPayType: 'WXPay',
             transType: '消费',
-            machineNo: '93000791',
+            appname:'CDO',
+            machineNo: '腾讯cloud',
             goodsNo: '123456',
             goodsPrice: 0.01,
             payAmount: 0.01,
-            goodsName: '可乐',
+            goodsName: '正常',
             aisleNo: null,
             orderStatus: 7,
             openId: null,
@@ -430,11 +440,12 @@ export default {
             payType: 6,
             subPayType: 'WXPay',
             transType: '消费',
-            machineNo: '93000791',
+            appname:'CDO',
+            machineNo: '微软云',
             goodsNo: '123456',
             goodsPrice: 0.01,
             payAmount: 0.01,
-            goodsName: '可乐',
+            goodsName: '正常',
             aisleNo: null,
             orderStatus: 1,
             openId: null,
@@ -455,11 +466,12 @@ export default {
             payType: 0,
             subPayType: '0',
             transType: '消费',
-            machineNo: '93000791',
+            appname:'CDO',
+            machineNo: '微软云',
             goodsNo: '123456',
             goodsPrice: 0.01,
             payAmount: 0.01,
-            goodsName: '可乐',
+            goodsName: '正常',
             aisleNo: null,
             orderStatus: 1,
             openId: null,
@@ -480,11 +492,12 @@ export default {
             payType: 0,
             subPayType: '0',
             transType: '消费',
-            machineNo: '93000791',
+            appname:'CDO',
+            machineNo: '微软云',
             goodsNo: '123456',
             goodsPrice: 0.01,
             payAmount: 0.01,
-            goodsName: '可乐',
+            goodsName: '正常',
             aisleNo: null,
             orderStatus: 1,
             openId: null,
@@ -616,12 +629,15 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 .user-search {
   margin-top: 20px;
 }
 .userRole {
   width: 100%;
+}
+.el-table .cell{
+  color:#515151 !important;
 }
 </style>
 

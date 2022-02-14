@@ -16,8 +16,11 @@
   </el-container> -->
 
   <el-container class="index-con">
-    <el-aside :class="showclass">
+    <el-aside :class="showclass" style="width: 240px">
       <leftnav></leftnav>
+    </el-aside>
+    <el-aside v-if= "chart = false" class="showclass2">
+      <rightnav></rightnav>
     </el-aside>
     <el-container class="main-con">
       <el-header class="index-header">
@@ -33,18 +36,21 @@
 // 导入组件
 import navcon from '../components/navcon.vue'
 import leftnav from '../components/leftnav.vue'
+import rightnav from '../components/rightnav.vue'
 export default {
   name: 'index',
   data() {
     return {
       showclass: 'asideshow',
-      showtype: false
+      showtype: false,
+      chart: this.$store.state.showright
     }
   },
   // 注册组件
   components: {
     navcon,
-    leftnav
+    leftnav,
+    rightnav
   },
   methods: {},
   created() {
@@ -80,18 +86,30 @@ export default {
 .aside {
   width: 64px !important;
   height: 100%;
-  background-color: #334157;
+  background-color: #fff;
   margin: 0px;
 }
 .asideshow {
   width: 240px !important;
   height: 100%;
-  background-color: #334157;
+  background-color: #fff;
   margin: 0px;
+}
+.showclass2 {
+  width: 160px !important;
+  height: 100%;
+  background-color: #fff;
+  margin: 0px;
+  position: absolute;
+  left:86%;
 }
 .index-header,
 .index-main {
   padding: 0px;
-  border-left: 2px solid #333;
+  border-left: 0px solid #333;
+  
+}
+.el-main{
+  background-color: #EDEDED;
 }
 </style>

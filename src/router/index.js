@@ -9,6 +9,7 @@ import index from '@/views/index';
  * 基础菜单
  */
 // 商品管理
+import Apply from '@/views/goods/Apply';
 import Goods from '@/views/goods/Goods';
 // 机器信息管理
 import Machine from '@/views/machine/Machine';
@@ -49,8 +50,11 @@ import druidLogin from '@/views/druid/login';
 
 // 图表界面
 import statistics from '@/views/charts/statistics';
+import statistics2 from '@/views/charts/statistics2';
+import devops from '@/views/goods/devops';
+import { apply } from 'file-loader';
 
-// 启用路由
+// 启用路由 
 Vue.use(Router);
 
 // 导出路由 
@@ -77,9 +81,16 @@ export default new Router({
         component: index,
         iconCls: 'el-icon-tickets',
         children: [{
-            path: '/goods/Goods',
-            name: '商品管理',
-            component: Goods,
+            path: '/charts/statistics2',
+            name: '数据可视化',
+            component: statistics2,
+            meta: {
+                requireAuth: true
+            }
+        }, {
+            path: '/goods/Apply',
+            name: '资源申请',
+            component: Apply,
             meta: {
                 requireAuth: true
             }
@@ -174,6 +185,21 @@ export default new Router({
             meta: {
                 requireAuth: true
             }
-        }]
+        }, {
+            path: '/goods/Goods',
+            name: '商品管理',
+            component: Goods,
+            meta: {
+                requireAuth: true
+            }
+        },{
+            path: '/goods/devops',
+            name: 'devops',
+            component: devops,
+            meta: {
+                requireAuth: true
+            } 
+        }
+        ]
     }]
 })

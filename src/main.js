@@ -9,10 +9,10 @@ import App from './App';
 import router from './router';
 // 引入状态管理
 import store from './vuex/store';
+Vue.prototype.$store = store
 // 引入icon
 import './assets/icon/iconfont.css'
 // 
-
 // 引入echarts
 import echarts from 'echarts'
 Vue.prototype.$echarts = echarts
@@ -27,21 +27,38 @@ Vue.use(ElementUI);
 // 过滤器
 import * as custom from './utils/util'
 
+
+//全局变量
+import global_ from './views/Global'
+Vue.__proto__.GLOBAL = global_
+
 Object.keys(custom).forEach(key => {
     Vue.filter(key, custom[key])
 })
 
 // 路由拦截器
 router.beforeEach((to, from, next) => {
+    console.log(this)
     if (to.matched.length != 0) {
         if (to.meta.requireAuth) { // 判断该路由是否需要登录权限
             if (Boolean(localStorage.getItem("userInfo"))) { // 通过vuex state获取当前的user是否存在
                 next();
+                if (to.fullPath.includes("statistic")) {
+                    console.log("sta")
+                    this.$store.state.showright = true
+                    
+                }
+                else {
+                    console.log("nonsta")
+                    this.$store.state.showright = false
+                    
+                }
             } else {
                 next({
                     path: '/login',
                     query: { redirect: to.fullPath } // 将跳转的路由path作为参数，登录成功后跳转到该路由
                 })
+
             }
         } else {
             if (Boolean(localStorage.getItem("userInfo"))) { // 判断是否登录
@@ -52,7 +69,7 @@ router.beforeEach((to, from, next) => {
                      * 防刷新，如果登录，修改路由跳转到登录页面，修改路由为登录后的首页 
                      */
                     next({
-                        path: '/goods/Goods'
+                        path: '/charts/statistics2'
                     })
                 }
             } else {
@@ -65,6 +82,7 @@ router.beforeEach((to, from, next) => {
             query: { redirect: to.fullPath } // 将跳转的路由path作为参数，登录成功后跳转到该路由
         })
     }
+
 })
 
 /* eslint-disable no-new */

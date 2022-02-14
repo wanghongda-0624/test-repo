@@ -2,9 +2,10 @@
 * 左边菜单
 */ 
 <template>
-  <el-menu default-active="2" :collapse="collapsed" collapse-transition router :default-active="$route.path" unique-opened class="el-menu-vertical-demo" background-color="#BEBEBE" text-color="#fff" active-text-color="#ffd04b">
+  <el-menu  :collapse="collapsed" collapse-transition router :default-active="$route.path" unique-opened class="el-menu-vertical-demo" background-color="#fff" text-color="#000" active-text-color="#E0301E">
     <div class="logobox">
       <img class="logoimg" src="../assets/img/pwc.svg" alt="">
+      <el-button class="cloudhub" type="text">CloudHub</el-button>
     </div>
     <el-submenu v-for="menu in allmenu" :key="menu.menuid" :index="menu.menuname">
       <template slot="title">
@@ -39,14 +40,22 @@ export default {
         {
           menuid: 1,
           icon: 'li-icon-xiangmuguanli',
-          menuname: '基础管理',
+          menuname: 'Cloud Resource',
           hasThird: null,
           url: null,
           menus: [
             {
+              menuid: 3,
+              icon: 'icon-cat-skuQuery',
+              menuname: 'Resource Apply',
+              hasThird: 'N',
+              url: 'goods/Apply',
+              menus: null
+            },
+            {
               menuid: 2,
               icon: 'icon-cat-skuQuery',
-              menuname: '商品管理',
+              menuname: 'My Resource',
               hasThird: 'N',
               url: 'goods/Goods',
               menus: null
@@ -56,16 +65,75 @@ export default {
         {
           menuid: 33,
           icon: 'li-icon-dingdanguanli',
-          menuname: '订单管理',
+          menuname: 'Bill Center',
           hasThird: null,
           url: null,
           menus: [
             {
               menuid: 34,
-              icon: 'icon-order-manage',
-              menuname: '交易订单',
+              icon: 'icon-provider-manage',
+              menuname: 'Bill Management',
               hasThird: 'N',
               url: 'pay/Order',
+              menus: null
+            },
+            {
+              menuid: 159,
+              icon: 'icon-provider-manage',
+              menuname: 'Bill Analytics',
+              hasThird: 'N',
+              url: 'charts/statistics2',
+              menus: null
+            }
+            // {
+            //   menuid: 160,
+            //   icon: 'icon-provider-manage',
+            //   menuname: 'Bill Analytics2',
+            //   hasThird: 'N',
+            //   url: 'charts/statistics',
+            //   menus: null
+            // }
+          ]
+        },
+        
+        {
+          menuid: 128,
+          icon: 'li-icon-shangchengxitongtubiaozitihuayuanwenjian91',
+          menuname: 'Cloud Lab',
+          hasThird: null,
+          url: null,
+          menus: [
+            {
+              menuid: 129,
+              icon: 'icon-provider-manage',
+              menuname: 'Cloud Materials',
+              hasThird: 'N',
+              url: 'machine/MachineConfig',
+              menus: null
+            },
+            {
+              menuid: 175,
+              icon: 'icon-provider-manage',
+              menuname: 'Best Practice',
+              hasThird: 'N',
+              url: 'pay/Config',
+              menus: null
+            }
+          ]
+        },
+        {
+          menuid: 151,
+          icon: 'li-icon-shangchengxitongtubiaozitihuayuanwenjian91',
+          menuname: 'DevOps',
+          hasThird: null,
+          url: null,
+          menus: [
+            {
+              menuid: 158,
+              icon: 'icon-provider-manage',
+              menuname: 'DevOps Apply',
+              hasThird: 'N',
+              url: 'goods/devops',
               menus: null
             }
           ]
@@ -73,7 +141,7 @@ export default {
         {
           menuid: 71,
           icon: 'li-icon-xitongguanli',
-          menuname: '系统管理',
+          menuname: 'System Management',
           hasThird: null,
           url: null,
           menus: [
@@ -126,48 +194,6 @@ export default {
               menus: null
             }
           ]
-        },
-        {
-          menuid: 128,
-          icon: 'li-icon-shangchengxitongtubiaozitihuayuanwenjian91',
-          menuname: '支付管理',
-          hasThird: null,
-          url: null,
-          menus: [
-            {
-              menuid: 129,
-              icon: 'icon-provider-manage',
-              menuname: '支付配置信息',
-              hasThird: 'N',
-              url: 'machine/MachineConfig',
-              menus: null
-            },
-            {
-              menuid: 175,
-              icon: 'icon-provider-manage',
-              menuname: '支付配置',
-              hasThird: 'N',
-              url: 'pay/Config',
-              menus: null
-            }
-          ]
-        },
-        {
-          menuid: 150,
-          icon: 'li-icon-shangchengxitongtubiaozitihuayuanwenjian91',
-          menuname: '图表',
-          hasThird: null,
-          url: null,
-          menus: [
-            {
-              menuid: 159,
-              icon: 'icon-provider-manage',
-              menuname: '数据可视化',
-              hasThird: 'N',
-              url: 'charts/statistics',
-              menus: null
-            }
-          ]
         }
       ],
       msg: 'success'
@@ -217,10 +243,18 @@ export default {
   line-height: 40px;
   color: #9d9d9d;
   font-size: 20px;
-  text-align: center;
+  text-align: left;
+  margin-left: 30px;
   padding: 20px 0px;
 }
 .logoimg {
-  height: 40px;
+  height: 30px;
+}
+.cloudhub.el-button--text{
+  color:#000;
+  
+}
+el-menu-item is-active{
+  color: #000;
 }
 </style>
