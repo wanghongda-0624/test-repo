@@ -51,12 +51,21 @@ steps:
     enableTransforms: false
     useLegacyPattern: false
     enableTelemetry: true
-- task: Docker@2
-  displayName: Build an image
+# - task: Docker@2
+#   displayName: Build an image
+#   inputs:
+#     repository: $(imageName)
+#     command: build
+#     Dockerfile: Docker/Dockerfile
+#     imageName:
+- task: Docker@0
+  displayName: 'Build Image'
   inputs:
-    repository: $(imageName)
-    command: build
+    containerregistrytype: 'Container Registry'
+    dockerRegistryConnection: 'gtsartifact_jfrog_io'
+    #command: 'build'
     Dockerfile: Docker/Dockerfile
+    imageName: 'cdocloud-docker/$(Build.Repository.Name):$(Build.BuildId)'
 - task: ArtifactoryDocker@1
   inputs:
     command: 'push'
