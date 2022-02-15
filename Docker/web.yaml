@@ -23,7 +23,7 @@ spec:
           ports:
             - containerPort: 80
           imagePullSecrets:
-            - name: jfrog
+            - name: #{jfrog}#
 
 ---
 #配置service
