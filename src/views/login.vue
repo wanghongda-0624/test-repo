@@ -1,26 +1,26 @@
 <template>
   <div class="login-wrap">
     <el-form label-position="left" :model="ruleForm" :rules="rules" ref="ruleForm" label-width="0px" class="demo-ruleForm login-container">
-      <h3 class="title">用户登录</h3>
+      <h3 class="title">User Login</h3>
       <el-form-item prop="username">
-        <el-input type="text" v-model="ruleForm.username" auto-complete="off" placeholder="账号"></el-input>
+        <el-input type="text" v-model="ruleForm.username" auto-complete="off" placeholder="Account"></el-input>
       </el-form-item>
       <el-form-item prop="password">
-        <el-input type="password" v-model="ruleForm.password" auto-complete="off" placeholder="密码"></el-input>
+        <el-input type="password" v-model="ruleForm.password" auto-complete="off" placeholder="Password"></el-input>
       </el-form-item>
       <el-row>
         <el-col :span="12">
           <el-form-item prop="code">
-            <el-input type="text" v-model="ruleForm.code" auto-complete="off" placeholder="图形验证码" @keyup.enter.native="submitForm('ruleForm')"></el-input>
+            <el-input type="text" v-model="ruleForm.code" auto-complete="off" placeholder="Captcha" @keyup.enter.native="submitForm('ruleForm')"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12" class="code-box">
           <img :src="ruleForm.codeimg" alt="" class="codeimg" @click="getcode()">
         </el-col>
       </el-row>
-      <el-checkbox class="remember" v-model="rememberpwd">记住密码</el-checkbox>
+      <el-checkbox class="remember" v-model="rememberpwd">Remember Password</el-checkbox>
       <el-form-item style="width:100%;">
-        <el-button type="primary" style="width:100%;" @click="submitForm('ruleForm')" :loading="logining">登录</el-button>
+        <el-button type="primary" style="width:100%;" @click="submitForm('ruleForm')" :loading="logining">Log In</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -84,7 +84,7 @@ export default {
           setTimeout(() => {
             this.logining = false
             this.$store.commit('login', 'true')
-            this.$router.push({ path: '/goods/Goods' })
+            this.$router.push({ path: '/charts/statistics2' })
           }, 1000)
           // 注释
           // login(this.ruleForm).then(res => {

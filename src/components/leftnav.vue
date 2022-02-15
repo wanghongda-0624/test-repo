@@ -5,7 +5,7 @@
   <el-menu  :collapse="collapsed" collapse-transition router :default-active="$route.path" unique-opened class="el-menu-vertical-demo" background-color="#fff" text-color="#000" active-text-color="#E0301E">
     <div class="logobox">
       <img class="logoimg" src="../assets/img/pwc.svg" alt="">
-      <el-button class="cloudhub" type="text">CloudHub</el-button>
+      <el-button class="cloudhub" type="text" @click="backhome()">CloudHub</el-button>
     </div>
     <el-submenu v-for="menu in allmenu" :key="menu.menuid" :index="menu.menuname">
       <template slot="title">
@@ -217,7 +217,13 @@ export default {
     this.$root.Bus.$on('toggle', value => {
       this.collapsed = !value
     })
+  },
+  methods:{
+    backhome(){
+      this.$router.push('/')
+    }
   }
+  
 }
 </script>
 <style>

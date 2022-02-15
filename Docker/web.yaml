@@ -1,0 +1,74 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-dep
+  labels:
+    app: web-app
+spec:
+  strategy:
+    type: Recreate
+  replicas: 1
+  selector:
+    matchLabels:
+      app: web-app
+  template:
+    metadata:
+      labels:
+        app: web-app
+    spec:
+      containers:
+        - name: web-container
+          image: nginx
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+          imagePullSecrets:
+            - name: jfrog
+
+---
+#配置service
+apiVersion: v1
+kind: Service
+metadata:
+  name: web-service
+  labels:
+    app: web-app
+spec:
+  type: ClusterIP
+  ports:
+    - port: 80
+      protocol: TCP
+      targetPort: 80
+  selector:
+    app: web-app
+
+
+---
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: web-ingress
+  annotations:
+    kubernetes.io/ingress.class: nginx
+spec:
+  rules:
+    - http:
+        paths:
+          - backend:
+              service:
+                name: web-service
+                port:
+                  number: 80
+            path: /
+            pathType: Prefix
+
+
+
+          
+              
+
+
+
+
+
