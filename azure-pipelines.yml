@@ -38,16 +38,28 @@ steps:
     pathToPublish: $(Build.ArtifactStagingDirectory)
     artifactName: MyBuildOutputs
 
+# - task: replacetokens@5
+#   inputs:
+#     rootDirectory: '$(Build.ArtifactStagingDirectory)'
+#     targetFiles: '**/*/Dockerfile'
+#     encoding: 'auto'
+#     tokenPattern: 'default'
+#     writeBOM: true
+#     actionOnMissing: 'warn'
+#     keepToken: false
+#     actionOnNoFiles: 'continue'
+#     enableTransforms: false
+#     useLegacyPattern: false
+#     enableTelemetry: true
 - task: replacetokens@5
   inputs:
-    rootDirectory: '$(Build.ArtifactStagingDirectory)'
     targetFiles: '**/*/Dockerfile'
     encoding: 'auto'
     tokenPattern: 'default'
     writeBOM: true
     actionOnMissing: 'warn'
     keepToken: false
-    actionOnNoFiles: 'continue'
+    actionOnNoFiles: 'warn'
     enableTransforms: false
     useLegacyPattern: false
     enableTelemetry: true
