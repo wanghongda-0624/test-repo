@@ -30,7 +30,7 @@ steps:
     echo $(Build.ArtifactStagingDirectory)
     echo $(sss)
     echo $(System.ArtifactsDirectory)
-    eccho $(System.DefaultWorkingDirectory)
+    echo $(System.DefaultWorkingDirectory)
 - task: CopyFiles@2
   inputs:
     contents: 'dist/**'
