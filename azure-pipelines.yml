@@ -29,6 +29,7 @@ steps:
     pwd
     echo $(Build.ArtifactStagingDirectory)
     echo $(sss)
+    echo $(System.ArtifactsDirectory)
 - task: CopyFiles@2
   inputs:
     contents: 'dist/**'
