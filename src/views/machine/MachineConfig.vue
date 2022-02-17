@@ -40,10 +40,10 @@
         </p>
       </el-carousel-item>
     </el-carousel>
-    <el-table :data="tableData" stripe style="width: 100%">
+    <el-table :data="tableData" stripe style="width: 100%" @row-click="openLink">
       <el-table-column prop="date" label="Name" width="180"> </el-table-column>
       <el-table-column prop="name" label="Link" width="180"> 
-        <img src="../../assets/img/link.svg" width="25px" height="25px" @click="openLink()"/>
+        <img src="../../assets/img/link.svg" width="25px" height="25px"/>
       </el-table-column>
       <el-table-column prop="address" label="Description" > </el-table-column>
     </el-table>
@@ -99,21 +99,25 @@ export default {
         },
       ],
       tableData: [{
-          date: '2016-05-03',
+          date: 'Azure Function',
           name: 'Tom',
-          address: 'No. 189, Grove St, Los Angeles'
+          address: 'No. 189, Grove St, Los Angeles',
+          link: 'https://portal-doc.obs.cn-east-3.myhuaweicloud.com:443/AKS%20Best%20Practices%20Deepdive%20for%20BMW.pdf?AccessKeyId=HZT3CL9ER9LKKVRN3JIL&Expires=1645144770&response-content-disposition=inline&x-obs-security-token=gQpjbi1ub3J0aC00ja_Gs3ruiOc9RL6WN3WlCd1TpcjMjxJpPNE5e2kzbGf8o1ekMrIVbj2y-soqxs7o2djfYQQSoe0jq7BoZdRGmCaMPUvOCA9piafq8vqe-7UkmdNO6iQ3y9XOk_Os07pi_2eABEI8gU5MDk4cH6vpm49wP9R16O34DspG_T5g-OsH4P8Ma1sSg7RN66xT_MDcyEzgppmPFl5la1pqxFXjz5kXiNJGPy0zhtr4yrJxsmgr-V191MYxZ7SFoeyRbO5pjib3af_id5ZlibY7xJ3y_b0tDl9OwETA-gRWxuuRrLc1YVUMm_e_1rGM7-ZABNFGcB83rnL_pk-EfVha724CJksDfEFQL2T465xk_hF63JfIMYK7EXnHVweVP2530adn0sTqRuAB28OJrvITUyyl__CwbSmK2dSueDcra2c_dh22AlJahGAj-iHPeph1_7KNx2e965-HoVYfmlaLsBR67FFwJUcQzyItjG9dmblQpT_21YN25AoU3YudJlQFDAKP7XVlzMRou_wjseTxkbVs1wKTU2qVd4mGgtIY6FgAUKU2r3kJq4K1MPQwT6VpHbMPbaLyL_i1-OMEFtgPVSVTbaMg67snVSYH0FIbGG-2sRkvDGPBjOkZepuKMv4et4ktuxCDsC5hH-XKsyC6EYd11TOy-iwXvKHQn8iEh_7-rKXxDh60gn2SVptKWj5ZiCMLpr8RVfbRAZIavF6FUzHPsTAmnMHRh195flqdgWmD76xa4VlcIJG5T-0kiPjKlP8TKjcsp2E_CTHGwwjuIVA5HME%3D&Signature=QKx2RocBhzgAqWs10xwKMUfUVnA%3D'
         }, {
-          date: '2016-05-02',
+          date: 'HW CCE',
           name: 'Tom',
-          address: 'No. 189, Grove St, Los Angeles'
+          address: 'No. 189, Grove St, Los Angeles',
+          link: 'https://portal-doc.obs.cn-east-3.myhuaweicloud.com:443/NextGen%20Cloud%20Tooling%20Highlights.pdf?AccessKeyId=QWROPPH7MFDQGBY3QR49&Expires=1645144801&response-content-disposition=inline&x-obs-security-token=gQpjbi1ub3J0aC00jRUaC4A1gvl8Z8PfikVT-6az2Te51Yl7pDbDIRtXIZIXYbnOhQMXz-LdEjQb085S797v-EbPyJbekKE3j_OHObXujKTRI_aAUjZnOQxZYMyhrjcej_RXnTjrd4p-syJai8rZnbM947fhyWcW-vAD8INZFd0UeyJKukck8uYxPvGPYN2ftE3UgMp9-q7SX5u5FqJl171b3z8dUN2C-5bUTYQkhr6FPPTYyp-rKNNkF2S7GxJSFMd0KMxOl-6Mq_WMVCqPA9UEakpwoU3-oecs06K9GSOU4Oj_uFl42C7ku7dVerIFW8Ow1pSwvOT_FW9G0Ew9DIC8mj22xzK26aLYeZXcBlnZ7QhKfbO3qlPThiyiMLE4aZL0ll7Tym89JsfPZ_S2uLqPTZyf0Py3nl4SoH-zG3hpXid_f6MhH5YOUHiZ91R7uNfbDrS1hT6tTCY2jCt7W0JBJLCpZDdQXQChj8ZkGeG6Ym-pa2ggBMp7AoVuL66x1FHu7M1SWldjlIu3lDWd5EF-_U25d6moM9YX5k_mT5xuobjLr_MxC5fjIfQjBzv1sO0jb8zHlQEtmobDab5pTUIl_PFwq8DW_9NEGMGjos8FOJlDV8rAoZJpXGNzrW_0E_rAsnHbtz5-G03UdHdx4F2Y9sIaTvD1Q0gwx7ykiSWhfge_Oah-9yhN4SfvyVA5o6TghAfu7cv-Xq8YRCkQmuewML9HZdaUV8en_9w3Ud2f2dxoSLDhxqnvNwI4LXkugUEpgQreBrzlTR3YnFNZXleb2VluFsza6YdqjJA%3D&Signature=MtDF2EuKcZ9B90pwESyepWKRBYo%3D'
         }, {
-          date: '2016-05-04',
+          date: '阿里白皮书',
           name: 'Tom',
-          address: 'No. 189, Grove St, Los Angeles'
+          address: 'No. 189, Grove St, Los Angeles',
+          link: 'https://portal-doc.obs.cn-east-3.myhuaweicloud.com:443/AKS%20Best%20Practices%20Deepdive%20for%20BMW.pdf?AccessKeyId=HZT3CL9ER9LKKVRN3JIL&Expires=1645144770&response-content-disposition=inline&x-obs-security-token=gQpjbi1ub3J0aC00ja_Gs3ruiOc9RL6WN3WlCd1TpcjMjxJpPNE5e2kzbGf8o1ekMrIVbj2y-soqxs7o2djfYQQSoe0jq7BoZdRGmCaMPUvOCA9piafq8vqe-7UkmdNO6iQ3y9XOk_Os07pi_2eABEI8gU5MDk4cH6vpm49wP9R16O34DspG_T5g-OsH4P8Ma1sSg7RN66xT_MDcyEzgppmPFl5la1pqxFXjz5kXiNJGPy0zhtr4yrJxsmgr-V191MYxZ7SFoeyRbO5pjib3af_id5ZlibY7xJ3y_b0tDl9OwETA-gRWxuuRrLc1YVUMm_e_1rGM7-ZABNFGcB83rnL_pk-EfVha724CJksDfEFQL2T465xk_hF63JfIMYK7EXnHVweVP2530adn0sTqRuAB28OJrvITUyyl__CwbSmK2dSueDcra2c_dh22AlJahGAj-iHPeph1_7KNx2e965-HoVYfmlaLsBR67FFwJUcQzyItjG9dmblQpT_21YN25AoU3YudJlQFDAKP7XVlzMRou_wjseTxkbVs1wKTU2qVd4mGgtIY6FgAUKU2r3kJq4K1MPQwT6VpHbMPbaLyL_i1-OMEFtgPVSVTbaMg67snVSYH0FIbGG-2sRkvDGPBjOkZepuKMv4et4ktuxCDsC5hH-XKsyC6EYd11TOy-iwXvKHQn8iEh_7-rKXxDh60gn2SVptKWj5ZiCMLpr8RVfbRAZIavF6FUzHPsTAmnMHRh195flqdgWmD76xa4VlcIJG5T-0kiPjKlP8TKjcsp2E_CTHGwwjuIVA5HME%3D&Signature=QKx2RocBhzgAqWs10xwKMUfUVnA%3D'
         }, {
-          date: '2016-05-01',
+          date: '腾讯Cloud',
           name: 'Tom',
-          address: 'No. 189, Grove St, Los Angeles'
+          address: 'No. 189, Grove St, Los Angeles',
+          link: 'https://portal-doc.obs.cn-east-3.myhuaweicloud.com:443/AKS%20Best%20Practices%20Deepdive%20for%20BMW.pdf?AccessKeyId=HZT3CL9ER9LKKVRN3JIL&Expires=1645144770&response-content-disposition=inline&x-obs-security-token=gQpjbi1ub3J0aC00ja_Gs3ruiOc9RL6WN3WlCd1TpcjMjxJpPNE5e2kzbGf8o1ekMrIVbj2y-soqxs7o2djfYQQSoe0jq7BoZdRGmCaMPUvOCA9piafq8vqe-7UkmdNO6iQ3y9XOk_Os07pi_2eABEI8gU5MDk4cH6vpm49wP9R16O34DspG_T5g-OsH4P8Ma1sSg7RN66xT_MDcyEzgppmPFl5la1pqxFXjz5kXiNJGPy0zhtr4yrJxsmgr-V191MYxZ7SFoeyRbO5pjib3af_id5ZlibY7xJ3y_b0tDl9OwETA-gRWxuuRrLc1YVUMm_e_1rGM7-ZABNFGcB83rnL_pk-EfVha724CJksDfEFQL2T465xk_hF63JfIMYK7EXnHVweVP2530adn0sTqRuAB28OJrvITUyyl__CwbSmK2dSueDcra2c_dh22AlJahGAj-iHPeph1_7KNx2e965-HoVYfmlaLsBR67FFwJUcQzyItjG9dmblQpT_21YN25AoU3YudJlQFDAKP7XVlzMRou_wjseTxkbVs1wKTU2qVd4mGgtIY6FgAUKU2r3kJq4K1MPQwT6VpHbMPbaLyL_i1-OMEFtgPVSVTbaMg67snVSYH0FIbGG-2sRkvDGPBjOkZepuKMv4et4ktuxCDsC5hH-XKsyC6EYd11TOy-iwXvKHQn8iEh_7-rKXxDh60gn2SVptKWj5ZiCMLpr8RVfbRAZIavF6FUzHPsTAmnMHRh195flqdgWmD76xa4VlcIJG5T-0kiPjKlP8TKjcsp2E_CTHGwwjuIVA5HME%3D&Signature=QKx2RocBhzgAqWs10xwKMUfUVnA%3D'
         }],
         
     };
@@ -138,8 +142,9 @@ export default {
     fadeInOrFadeOut(className) {
       $("." + className).fadeToggle();
     },
-    openLink(){
-      console.log(this.$refs);
+    openLink(row, event, column){
+      console.log(row.link);
+      window.location.href=row.link
     },
   },
 };

@@ -18,12 +18,12 @@ spec:
     spec:
       containers:
         - name: web-container
-          image: nginx
+          image: cdocloud-docker/#{repo}#:#{tag}#
           imagePullPolicy: Always
           ports:
             - containerPort: 80
-          imagePullSecrets:
-            - name: #{jfrog}#
+      imagePullSecrets:
+        - name: jfrog
 
 ---
 #配置service

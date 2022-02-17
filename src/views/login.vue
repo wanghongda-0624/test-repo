@@ -1,91 +1,182 @@
 <template>
   <div class="login-wrap">
-    <el-form label-position="left" :model="ruleForm" :rules="rules" ref="ruleForm" label-width="0px" class="demo-ruleForm login-container">
+    <el-form
+      label-position="left"
+      :model="ruleForm"
+      :rules="rules"
+      ref="ruleForm"
+      label-width="0px"
+      class="demo-ruleForm login-container"
+    >
       <h3 class="title">User Login</h3>
       <el-form-item prop="username">
-        <el-input type="text" v-model="ruleForm.username" auto-complete="off" placeholder="Account"></el-input>
+        <el-input
+          type="text"
+          v-model="ruleForm.username"
+          auto-complete="off"
+          placeholder="Account"
+        ></el-input>
       </el-form-item>
       <el-form-item prop="password">
-        <el-input type="password" v-model="ruleForm.password" auto-complete="off" placeholder="Password"></el-input>
+        <el-input
+          type="password"
+          v-model="ruleForm.password"
+          auto-complete="off"
+          placeholder="Password"
+        ></el-input>
       </el-form-item>
       <el-row>
         <el-col :span="12">
           <el-form-item prop="code">
-            <el-input type="text" v-model="ruleForm.code" auto-complete="off" placeholder="Captcha" @keyup.enter.native="submitForm('ruleForm')"></el-input>
+            <el-input
+              type="text"
+              v-model="ruleForm.code"
+              auto-complete="off"
+              placeholder="Captcha"
+              @keyup.enter.native="submitForm('ruleForm')"
+            ></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12" class="code-box">
-          <img :src="ruleForm.codeimg" alt="" class="codeimg" @click="getcode()">
+          <!-- <img :src="ruleForm.codeimg" alt="" class="codeimg" @click="getcode()"> -->
+          <div style="border: none" @click="refreshCode">
+            <s-Identify :identifyCode="identifyCode"></s-Identify>
+          </div>
         </el-col>
       </el-row>
-      <el-checkbox class="remember" v-model="rememberpwd">Remember Password</el-checkbox>
-      <el-form-item style="width:100%;">
-        <el-button type="primary" style="width:100%;" @click="submitForm('ruleForm')" :loading="logining">Log In</el-button>
+      <el-checkbox class="remember" v-model="rememberpwd"
+        >Remember Password</el-checkbox
+      >
+      <el-form-item style="width: 100%">
+        <el-button
+          type="primary"
+          style="width: 100%"
+          @click="submitForm('ruleForm')"
+          :loading="logining"
+          >Log In</el-button
+        >
       </el-form-item>
     </el-form>
   </div>
 </template>
 <script type="text/ecmascript-6">
-import { login } from '../api/userMG'
-import { setCookie, getCookie, delCookie } from '../utils/util'
-import md5 from 'js-md5'
+import { login } from "../api/userMG";
+import { setCookie, getCookie, delCookie } from "../utils/util";
+import md5 from "js-md5";
+import SIdentify from "../components/identify";
 export default {
-  name: 'login',
+  name: "login",
   data() {
+    const validateCode = (rule, value, callback) => {
+      if (this.identifyCode !== value) {
+        this.loginForm.code = "";
+        this.refreshCode();
+        callback(new Error("请输入正确的验证码"));
+      } else {
+        callback();
+      }
+    };
     return {
       //定义loading默认为false
       logining: false,
       // 记住密码
       rememberpwd: false,
+      identifyCodes: "1234567890",
+      identifyCode: "", //找回密码图形验证码
       ruleForm: {
         //username和password默认为空
-        username: '',
-        password: '',
-        code: '',
-        randomStr: '',
-        codeimg: ''
+        username: "",
+        password: "",
+        code: "",
+        randomStr: "",
+        codeimg: "",
       },
       //rules前端验证
       rules: {
-        username: [{ required: true, message: '请输入账号', trigger: 'blur' }],
-        password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
-        code: [{ required: true, message: '请输入验证码', trigger: 'blur' }]
-      }
-    }
+        username: [{ required: true, message: "请输入账号", trigger: "blur" }],
+        password: [{ required: true, message: "请输入密码", trigger: "blur" }],
+        code: [{ required: true, message: "请输入验证码", trigger: "blur" }],
+      },
+    };
   },
-  // 创建完毕状态(里面是操作)
+
+  components: {
+    "s-Identify": SIdentify,
+  },
+  watch: {
+    identifyCode(v) {
+      this.isDebugLogin && (this.loginForm.code = v);
+    },
+    dphone(newvalue) {
+      const self = this;
+      if (newvalue) {
+        if (this.dpass) self.dbutt = true;
+      } else {
+        self.dbutt = false;
+      }
+    },
+    dpass(newvalue) {
+      const self = this;
+      if (newvalue) {
+        if (this.dphone) self.dbutt = true;
+      } else {
+        self.dbutt = false;
+      }
+    },
+  },
+
+  mounted(){
+   self.makeCode(this.identifyCodes, 4);
+  },
+
   created() {
     this.$message({
-      message: '账号密码及验证码不为空即可',
-      type: 'success'
-    })
+      message: "账号密码及验证码不为空即可",
+      type: "success",
+    });
     // 获取图形验证码
-    this.getcode()
+    this.getcode();
     // 获取存在本地的用户名密码
-    this.getuserpwd()
-    
+    this.getuserpwd();
+    this.refreshCode();
   },
   // 里面的函数只有调用才会执行
   methods: {
+
+    randomNum(min, max) {
+      return Math.floor(Math.random() * (max - min) + min)
+    },
+    refreshCode() {
+      this.identifyCode = ''
+      this.makeCode(this.identifyCodes, 4)
+    },
+    makeCode(o, l) {
+      for (let i = 0; i < l; i++) {
+        this.identifyCode += this.identifyCodes[
+          this.randomNum(0, this.identifyCodes.length)
+          ]
+      }
+    },
+
     // 获取用户名密码
     getuserpwd() {
-      if (getCookie('user') != '' && getCookie('pwd') != '') {
-        this.ruleForm.username = getCookie('user')
-        this.ruleForm.password = getCookie('pwd')
-        this.rememberpwd = true
+      if (getCookie("user") != "" && getCookie("pwd") != "") {
+        this.ruleForm.username = getCookie("user");
+        this.ruleForm.password = getCookie("pwd");
+        this.rememberpwd = true;
       }
     },
     //获取info列表
     submitForm(formName) {
-      this.$refs[formName].validate(valid => {
+      this.$refs[formName].validate((valid) => {
         if (valid) {
-          this.logining = true
+          this.logining = true;
           // 测试通道，不为空直接登录
           setTimeout(() => {
-            this.logining = false
-            this.$store.commit('login', 'true')
-            this.$router.push({ path: '/charts/statistics2' })
-          }, 1000)
+            this.logining = false;
+            this.$store.commit("login", "true");
+            this.$router.push({ path: "/charts/statistics2" });
+          }, 1000);
           // 注释
           // login(this.ruleForm).then(res => {
           //   if (res.success) {
@@ -116,15 +207,15 @@ export default {
           // })
         } else {
           // 获取图形验证码
-          this.getcode()
-          this.$message.error('请输入用户名密码！')
-          this.logining = false
-          return false
+          this.getcode();
+          this.$message.error("请输入用户名密码！");
+          this.logining = false;
+          return false;
         }
-      })
+      });
     },
-  }
-}
+  },
+};
 </script>
 
 <style scoped>
