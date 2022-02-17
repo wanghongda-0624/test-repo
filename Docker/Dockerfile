@@ -8,6 +8,6 @@ FROM nginx:latest
 #COPY ./dist/ /usr/share/nginx/html/
 #COPY #{distpath}#/MyBuildOutputs/dist/ /usr/share/nginx/html/
 #COPY #{distpath2}#/dist/ /usr/share/nginx/html/
-COPY ./dist/ /usr/share/nginx/html
+COPY dist/ /usr/share/nginx/html
 COPY nginx.conf /etc/nginx/nginx.conf
 EXPOSE 80
