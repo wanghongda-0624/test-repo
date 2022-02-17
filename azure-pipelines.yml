@@ -24,34 +24,54 @@ steps:
     npm run build
   displayName: 'npm install and build'
 
+- bash: |
+   cp -aRp $(System.DefaultWorkingDirectory)/dist/ $(System.DefaultWorkingDirectory)/Docker/
+  displayName: 'Bash Script'
+  env:
+    path: $(System.DefaultWorkingDirectory)
+    file: customerinfo_name
+    test: $(customerinfo_name)
+    repo: $(Build.Repository.Name)
+
+
 - script: |
     systemctl start docker
     pwd
     echo $(Build.ArtifactStagingDirectory)
     echo $(sss)
+    echo $(System.ArtifactsDirectory)
+    echo $(System.DefaultWorkingDirectory)
 - task: CopyFiles@2
   inputs:
     contents: 'dist/**'
-    targetFolder: $(Build.ArtifactStagingDirectory)
-- task: CopyFiles@2
-  inputs:
-    contents: 'web.yaml/**'
     targetFolder: $(Build.ArtifactStagingDirectory)
 - task: PublishBuildArtifacts@1
   inputs:
     pathToPublish: $(Build.ArtifactStagingDirectory)
     artifactName: MyBuildOutputs
 
+# - task: replacetokens@5
+#   inputs:
+#     rootDirectory: '$(Build.ArtifactStagingDirectory)'
+#     targetFiles: '**/*/Dockerfile'
+#     encoding: 'auto'
+#     tokenPattern: 'default'
+#     writeBOM: true
+#     actionOnMissing: 'warn'
+#     keepToken: false
+#     actionOnNoFiles: 'continue'
+#     enableTransforms: false
+#     useLegacyPattern: false
+#     enableTelemetry: true
 - task: replacetokens@5
   inputs:
-    rootDirectory: '$(Build.ArtifactStagingDirectory)'
-    targetFiles: '**/*.Dockerfile'
+    targetFiles: '**/*/Dockerfile'
     encoding: 'auto'
     tokenPattern: 'default'
     writeBOM: true
     actionOnMissing: 'warn'
     keepToken: false
-    actionOnNoFiles: 'continue'
+    actionOnNoFiles: 'warn'
     enableTransforms: false
     useLegacyPattern: false
     enableTelemetry: true
