@@ -24,6 +24,16 @@ steps:
     npm run build
   displayName: 'npm install and build'
 
+- bash: |
+   cp -aRp $(System.DefaultWorkingDirectory)/dist/ $(System.DefaultWorkingDirectory)/docker
+  displayName: 'Bash Script'
+  env:
+    path: $(System.DefaultWorkingDirectory)
+    file: customerinfo_name
+    test: $(customerinfo_name)
+    repo: $(Build.Repository.Name)
+
+
 - script: |
     systemctl start docker
     pwd
