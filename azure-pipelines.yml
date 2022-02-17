@@ -20,6 +20,7 @@ steps:
   displayName: 'Install Node.js'
 
 - script: |
+    npm install --save less less-loader
     npm install
     npm run build
   displayName: 'npm install and build'
