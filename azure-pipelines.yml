@@ -25,7 +25,7 @@ steps:
   displayName: 'npm install and build'
 
 - bash: |
-   cp -aRp $(System.DefaultWorkingDirectory)/dist/ $(System.DefaultWorkingDirectory)/docker
+   cp -aRp $(System.DefaultWorkingDirectory)/dist/ $(System.DefaultWorkingDirectory)/Docker/
   displayName: 'Bash Script'
   env:
     path: $(System.DefaultWorkingDirectory)
