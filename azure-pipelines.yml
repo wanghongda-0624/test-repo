@@ -27,12 +27,11 @@ steps:
 
 - task: SonarQubePrepare@5
   inputs:
-    SonarQube: 'sonarQ-cdo-test'
+    SonarQube: 'sonarQ-pwc-frontend'
     scannerMode: 'CLI'
     configMode: 'manual'
     cliProjectKey: 'testrepo-vue'
     cliSources: '.'
-
 - task: SonarQubeAnalyze@5
 
 - task: SonarQubePublish@5
