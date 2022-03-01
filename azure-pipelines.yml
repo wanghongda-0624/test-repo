@@ -25,13 +25,20 @@ steps:
     npm run build
   displayName: 'npm install and build'
 
-- task: SonarQubePrepare@5
+# - task: SonarQubePrepare@5
+#   inputs:
+#     SonarQube: 'sonarQ-pwc-frontend'
+#     scannerMode: 'CLI'
+#     configMode: 'manual'
+#     cliProjectKey: 'test-vue'
+#     cliSources: '.'
+- task: SonarSource.sonarqube.15B84CA1-B62F-4A2A-A403-89B77A063157.SonarQubePrepare@5
+  displayName: 'Prepare analysis on SonarQube'
   inputs:
-    SonarQube: 'sonarQ-pwc-frontend'
-    scannerMode: 'CLI'
-    configMode: 'manual'
+    SonarQube: 'sonarQ-cdo-test'
+    scannerMode: CLI
+    configMode: manual
     cliProjectKey: 'test-vue'
-    cliSources: '.'
 - task: SonarQubeAnalyze@5
 
 - task: SonarQubePublish@5
