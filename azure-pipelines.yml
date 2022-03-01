@@ -19,19 +19,19 @@ steps:
     versionSpec: '10.x'
   displayName: 'Install Node.js'
 
-- task: SonarQubePrepare@5
+- script: |
+    npm install --save less less-loader
+    npm install
+    npm run build
+  displayName: 'npm install and build'
+
+ task: SonarQubePrepare@5
   inputs:
     SonarQube: 'sonarQ-cdo-test'
     scannerMode: 'CLI'
     configMode: 'manual'
     cliProjectKey: 'testrepo-vue'
     cliSources: '.'
-
-- script: |
-    npm install --save less less-loader
-    npm install
-    npm run build
-  displayName: 'npm install and build'
 
 - task: SonarQubeAnalyze@5
 
