@@ -31,13 +31,13 @@ steps:
     scannerMode: 'CLI'
     configMode: 'manual'
     cliProjectKey: 'test-vue'
-    cliSources: '.'
+
 - task: SonarQubeAnalyze@5
 
 - task: SonarQubePublish@5
   inputs:
     pollingTimeoutSec: '300'
-
+    
 - bash: |
    cp -aRp $(System.DefaultWorkingDirectory)/dist/ $(System.DefaultWorkingDirectory)/Docker/
   displayName: 'Bash Script'
