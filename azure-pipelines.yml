@@ -12,6 +12,8 @@ pool:
 variables:
   imageName: 'pipelines-javascript-docker'
   DOCKER_BUILDKIT: 1
+variables:
+- group: sonarqube
 
 steps:
 - task: NodeTool@0
@@ -25,18 +27,18 @@ steps:
     npm run build
   displayName: 'npm install and build'
 
-# - task: SonarQubePrepare@5
-#   inputs:
-#     SonarQube: 'sonarQ-cdo-test'
-#     scannerMode: 'CLI'
-#     configMode: 'manual'
-#     cliProjectKey: 'test-vue'
+- task: SonarQubePrepare@5
+  inputs:
+    SonarQube: 'sonarQ-cdo-test'
+    scannerMode: 'CLI'
+    configMode: 'manual'
+    cliProjectKey: 'test-vue'
 
-# - task: SonarQubeAnalyze@5
+- task: SonarQubeAnalyze@5
 
-# - task: SonarQubePublish@5
-#   inputs:
-#     pollingTimeoutSec: '300'
+- task: SonarQubePublish@5
+  inputs:
+    pollingTimeoutSec: '300'
     
 - bash: |
    cp -aRp $(System.DefaultWorkingDirectory)/dist/ $(System.DefaultWorkingDirectory)/Docker/
