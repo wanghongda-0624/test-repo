@@ -9,11 +9,17 @@ pool:
   sha_huawei_self_hosted_prd_agent
   #vmImage: ubuntu-latest
 
+# variables:
+#   group: sonarqube
+#   imageName: 'pipelines-javascript-docker'
+#   DOCKER_BUILDKIT: 1
+
 variables:
-  group: sonarqube
-  imageName: 'pipelines-javascript-docker'
-  DOCKER_BUILDKIT: 1
-  
+- group: sonarqube
+- name: imageName
+  value: 'pipelines-javascript-docker'
+- name: DOCKER_BUILDKIT
+  value: 1
 
 steps:
 - task: NodeTool@0
