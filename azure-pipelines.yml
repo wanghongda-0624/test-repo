@@ -20,7 +20,8 @@ variables:
   value: 'pipelines-javascript-docker'
 - name: DOCKER_BUILDKIT
   value: 1
-
+- name: NODE_EXTRA_CA_CERTS
+  value: /ado_agent_utility/certs/cnshasonarqubeprd.asia.pwcinternal.com.pem
 steps:
 - task: NodeTool@0
   inputs:
